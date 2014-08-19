@@ -1,0 +1,12 @@
+package Notificaciones;
+
+
+public class ventanaNotificaciones {
+
+	
+	public static void main(String[] args) {
+		claseNotificaciones vn = new claseNotificaciones();
+
+	}
+
+}
