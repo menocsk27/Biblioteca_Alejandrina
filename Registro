@@ -1,0 +1,177 @@
+/*Esta sección todavía no puede incorporarse al proyecto,
+sin embargo es el manejo de Arrays de Arrays que planea dársele a los datos*/
+
+package paquete;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.io.*;
+
+public class Registro {
+	public static ArrayList<ArrayList<String>> Clientes = new ArrayList<ArrayList<String>>();
+	public static ArrayList<ArrayList<String>> Libros = new ArrayList<ArrayList<String>>();
+	static BufferedReader in;
+	static PrintStream out;
+	public Registro() {}
+	
+	public static void main(String[] args) throws IOException {
+		in = new BufferedReader (new InputStreamReader(System.in));
+		out = System.out;
+		registrarCliente();
+		//registrarObjeto();
+		//importarTxt("archivo.txt"); //El archivo debe estar a la par del .project O poner la direccion con un input
+		//seisEntradas ("Hola;Mundo;Soy;Julian;y;Java;es;Bonito");
+		
+		//Printear un Array de Arrays
+		for (ArrayList<String> l1 : Clientes) {
+			out.print("[");
+			for (String n : l1) {
+				System.out.print(n+",");}
+			System.out.println("],");}}
+	
+	//Funciones de registro de Objetos
+	static void registrarCliente() throws IOException {
+		String nombre;
+		String apellido1;
+		String apellido2;
+		String telefono;
+		String correo; 
+		String categoria;
+		ArrayList<String> nuevoCliente = new ArrayList<String>();
+		boolean salir = false;
+		do {
+			out.println("REGISTRO DE CLIENTES");
+			out.println("Escriba un nombre para el nuevo cliente: ");
+			nombre = in.readLine();
+			out.println("El primer apellido: ");
+			apellido1 = in.readLine();
+			out.println("El segundo apellido: ");
+			apellido2 = in.readLine();
+			out.println("Se requiere un número telefónico para localizarl@: ");
+			telefono = in.readLine();
+			out.println("Y también su correo:");
+			correo = in.readLine();
+			categoria = Integer.toString(asignarCategoria());
+
+			out.print("Usuario: ");out.print(nombre+" ");out.print(apellido1+" ");out.print(apellido2+"\n");
+			out.print("Teléfono: ");out.print(telefono+"\n");
+			out.print("Correo: ");out.print(correo+"\n");
+			out.print("Categoría: ");out.print(categoria+"\n");
+			out.println("¡Listo! Así se ven los datos. ¿Le gustaría cambiarlos? (s/n)");
+			salir = in.readLine().charAt(0) != 's';} 
+		while (!salir); 
+		nuevoCliente.add(nombre); 
+		nuevoCliente.add(apellido1);
+		nuevoCliente.add(apellido2);
+		nuevoCliente.add(telefono);
+		nuevoCliente.add(correo);
+		nuevoCliente.add(categoria);
+		Clientes.add(nuevoCliente);
+		out.println("Esta es la nueva entrada de la matriz: "+nuevoCliente);
+		out.println();}
+	static void registrarObjeto() throws IOException {
+		String titulo;
+		String autor;
+		String editorial;
+		String edicion;
+		String dirImg;
+		String calif;
+		ArrayList<String> nuevoObjeto = new ArrayList<String>();
+		boolean salir = false;
+		do {
+			out.println("REGISTRO DE CLIENTES");
+			out.println("Titulo de la obra: ");
+			titulo = in.readLine();
+			out.println("Autor de la obra: ");
+			autor = in.readLine();
+			out.println("Editorial: ");
+			editorial = in.readLine();
+			out.println("Edición: ");
+			edicion = in.readLine();
+			out.println("Dirección de la imagen de portada: ");
+			dirImg = in.readLine();
+			calif = Integer.toString(asignarCalificacion()); 
+			
+			out.print("Título: ");out.print(titulo+" ");
+			out.print("Autor: ");out.print(autor+"\n");
+			out.print("Editorial: ");out.print(editorial+"\n");
+			out.print("Edicion: ");out.print(edicion+"\n");
+			out.print("Portada: ");out.print(dirImg+"\n"); //Aquí hay que mostrar la imagen, no el string
+			out.print("Calificacion: ");out.print(calif+"\n"); //Aquí deben mostrarse la cantidad de estrellas
+			out.println("¡Listo! Así se ven los datos. ¿Le gustaría cambiarlos? (s/n)");
+			salir = in.readLine().charAt(0) != 's';}
+		while (!salir); 
+		nuevoObjeto.add(titulo); 
+		nuevoObjeto.add(autor);
+		nuevoObjeto.add(editorial);
+		nuevoObjeto.add(edicion);
+		nuevoObjeto.add(dirImg);
+		nuevoObjeto.add(calif);
+		out.println("Esta es la nueva entrada de la matriz: "+nuevoObjeto);
+		out.println();
+		}
+	static void importarTxt (String dirFile) throws FileNotFoundException{
+		File archivo = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+		try {
+			archivo = new File (dirFile); //El archivo debe estar en la carpeta Biblioteca Alejandrina
+		    fr = new FileReader (archivo.getAbsolutePath() + java.io.File.separator);
+		    br = new BufferedReader(fr);	 
+		    String linea;
+		    while((linea=br.readLine())!=null)
+		    	if (seisEntradas(linea) ==true) //Se asegura que tenga las entradas necesarias
+		    		//Aquí iría el registro de Cliente, cuando tenga los parámetros apropiados
+		    		out.println(linea);}
+		catch(Exception e){
+			e.printStackTrace();}
+		finally{
+			try{                    
+				if( null != fr ){   
+					fr.close();}}
+			catch (Exception e2){ 
+				e2.printStackTrace();}}}
+	
+	//Auxliares de validación. 
+	static boolean seisEntradas (String entrada){
+		String[] parts = entrada.split(";");
+		if (parts.length >= 8){
+			out.println("OHHH YEAHHH");
+			for (int i = 0; i < parts.length; i++){
+				out.println(parts[i]);}
+			return true;}
+		else {
+			out.println("nigga that aint gonna pass yo");
+			return false;}}
+	static int asignarCategoria () throws IOException {
+		int categoria;
+		out.println("Por último, asígnele una categoría. Recuerde que:");
+		out.println("1. Si se trata de un/una estudiante.");
+		out.println("2. Si se trata de un/una colega.");
+		out.println("3. Si se trata de un/una familiar.");
+		try {
+			categoria = Integer.parseInt(in.readLine());
+			if ((categoria >0)&&(categoria<4))
+				return categoria;
+			else{
+				out.println("Error. Debe escoger 1, 2 o 3");
+		    	return asignarCategoria();}}
+		catch (NumberFormatException e) {
+			out.println("Error. Debe escoger 1, 2 o 3");
+		    return asignarCategoria();}}
+	static int asignarCalificacion () throws IOException {
+		int calif;
+		out.println("Por último, asígnele una calificación del 1 al 5");
+		try {
+			calif = Integer.parseInt(in.readLine());
+			if ((calif > 0)&&(calif<6)) 
+				return calif;
+			else{
+				out.println("Error. Debe escoger un número del 1 al 5");
+		    	return asignarCalificacion();}}
+		catch (NumberFormatException e) {
+			out.println("Error. Debe escoger un número del 1 al 5");
+		    return asignarCalificacion();}}
+}
